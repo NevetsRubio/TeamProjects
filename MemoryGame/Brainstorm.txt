@@ -1,0 +1,23 @@
+Games {
+Top10: []
+}
+
+Game {
+Score:
+Player:
+Time:
+StartTimer()
+TimeLimit:
+}
+
+Person {
+
+}
+
+Deck { 
+Shuffle()
+}
+
+Card {
+
+}

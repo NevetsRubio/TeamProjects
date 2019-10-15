@@ -1,9 +1,14 @@
-div{
+div, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-.flex-row{
+
+body {
+    background-color: #E7ECEF;
+}
+
+.flex-row {
     display: flex;
     width: 50%;
     margin: auto;
@@ -11,13 +16,37 @@ div{
     justify-content: space-evenly;
 }
 
-.flex-row .card{
+.flex-row .card {
     padding: 50px 35px;
     margin: 25px;
     border: 1px solid black;
     text-align: center;
+    background-color: #939196;
 }
 
-.flex-row .card:hover{
-    box-shadow: 0px 0px 5px yellowgreen;
+.flex-row .card:hover {
+    box-shadow: 0px 0px 5px grey;
+    background-color: #8AB0AB;
+}
+
+.center,
+header {
+    text-align: center;
+}
+
+.btn {
+    padding: 15px 25px;
+    margin: 15px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.btn:hover,
+.btn:focus {}
+
+header {
+    background-color: #273C2C;
+    padding: 15px;
+    margin: 0;
+    color: white;
 }

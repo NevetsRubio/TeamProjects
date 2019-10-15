@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Memory Game V2</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .center {
+        text-align: center;
+    }
+
+    /*Modal*/
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        box-shadow: 0px 0px 5px black;
+    }
+
+
+    small.instructions {
+        display: block;
+        text-align: center;
+        color: grey;
+    }
+
+    .ModalBody {
+        margin: 50px auto 25px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    select {
+        padding: 7px 15px;
+        border-radius: 5px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    @media(max-width: 500px) {
+        .ModalBody {
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        select {
+            padding: 5px 7px;
+        }
+    }
+</style>
+
+<body>
+    <h2>Modal Example</h2>
+
+    <button onclick="openSettings();">Open Modal</button>
+
+    <!--Modal Settings-->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="ModalHeader">
+                <span class="close" onclick="closeSettings();">&times;</span>
+                <br>
+                <h1>Settings</h2>
+                    <small class="instructions">Please select your preferred settings.</small>
+            </div>
+            <div class="ModalBody">
+                <div>
+                    <label>Card Counts: </label>
+                    <select>
+                        <option>4 X 4 &nbsp;(16 Cards)</option>
+                        <option>6 X 6 &nbsp;(36 Cards)</option>
+                        <option>8 X 8 &nbsp;(64 Cards)</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Card Theme: </label>
+                    <select>
+                        <option>Numbers</option>
+                        <option>Power Rangers</option>
+                        <option>Pokemon</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Difficulty: </label>
+                    <select>
+                        <option>Easy</option>
+                        <option>Hard</option>
+                        <option>Impossible</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+
+        function openSettings() {
+            modal.style.display = "block";
+        }
+
+        function closeSettings() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeSettings();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
