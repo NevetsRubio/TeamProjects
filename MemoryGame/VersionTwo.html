@@ -15,6 +15,7 @@
     * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
     }
 
     h1,
@@ -52,16 +53,21 @@
     }
 
 
-    small.instructions {
+    span.instructions {
         display: block;
         text-align: center;
         color: grey;
+        margin: 5px;
     }
 
     .ModalBody {
         margin: 50px auto 25px;
         display: flex;
         justify-content: space-evenly;
+    }
+
+    .ModalFooter {
+        text-align: center;
     }
 
     select {
@@ -87,6 +93,22 @@
         cursor: pointer;
     }
 
+    .btn {
+        padding: 15px 25px;
+        margin: 15px;
+        border-radius: 5px;
+        border: 1px solid black;
+    }
+
+    main {
+        width: 75%;
+        background-color: green;
+        margin: auto;
+        border: 2px solid grey;
+        border-radius: 20px;
+        padding: 100px;
+    }
+
     @media(max-width: 500px) {
         .ModalBody {
             flex-direction: column;
@@ -100,10 +122,18 @@
 </style>
 
 <body>
-    <h2>Modal Example</h2>
-
-    <button onclick="openSettings();">Open Modal</button>
-
+    <header>
+        Header
+    </header>
+    <main>
+        <section id="GameBoard">
+        </section>
+        <section id="ScoreBoard">
+        </section>
+    </main>
+    <footer>
+        Footer
+    </footer>
     <!--Modal Settings-->
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -111,7 +141,7 @@
                 <span class="close" onclick="closeSettings();">&times;</span>
                 <br>
                 <h1>Settings</h2>
-                    <small class="instructions">Please select your preferred settings.</small>
+                    <span class="instructions">Please select your preferences.</span>
             </div>
             <div class="ModalBody">
                 <div>
@@ -139,6 +169,9 @@
                     </select>
                 </div>
             </div>
+            <div class="ModalFooter">
+                <button class="btn" onclick="closeSettings();">Apply Settings & Close</button>
+            </div>
         </div>
     </div>
 
@@ -158,6 +191,8 @@
                 closeSettings();
             }
         }
+
+        openSettings();
     </script>
 
 </body>
