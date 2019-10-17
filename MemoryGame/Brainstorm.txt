@@ -1,23 +1,57 @@
-Games {
-Top10: []
+GameSession {
+    GameSessionId
+    Settings {
+        Theme
+        CardCount
+        Difficulty
+    }
+    PlayerName
+    Score
+    Time
+    TimeLimit
+    Deck
+    SetPlayerName()
+    StartTimer()
+    EndTimer()
+    ClearScore()
+    IncrementScore()
+    DecrementScore()
 }
 
-Game {
-Score:
-Player:
-Time:
-StartTimer()
-TimeLimit:
-}
-
-Person {
-
-}
-
-Deck { 
-Shuffle()
+Deck {
+    DeckId
+    Theme
+    CardCount
+    Difficulty
+    Cards
+    Matches
+    CurrentSelection
+    AddToMatches()
+    ClearMatches()
+    AddToCurrentSelection()
+    ClearCurrentSelection()
+    Shuffle()
+    AllCardsUp()
+    AllCardsDown()
 }
 
 Card {
-
+    CardId
+    MatchId
+    CardImage
+    IsFlippedUp() return Bool
+    FlipUp()
+    FlipDown()
 }
+__________________________
+
+ToDoList : [
+    Dynamically Create Card Classes for Deck.
+    Find Images for Card Themes/Difficulty/Count.
+    Dynamically Create Elements to Cards (In Function).
+    Dynamically Create Rows for Cards to be appended to.
+]
+
+LogicalNote : [
+    Shuffle Images in Array then apply them to Cards (LOGICAL NOTE).    
+]
