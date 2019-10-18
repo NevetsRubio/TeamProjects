@@ -46,12 +46,15 @@ Card {
 __________________________
 
 ToDoList : [
-    Dynamically Create Card Classes for Deck.
+    Dynamically Create Card Classes for Deck. XXX
     Find Images for Card Themes/Difficulty/Count.
-    Dynamically Create Elements to Cards (In Function).
-    Dynamically Create Rows for Cards to be appended to.
+    Dynamically Create Elements to Cards (In Function). XXX
+    Dynamically Create Rows for Cards to be appended to. XXX
+    Fix function for flipping cards.
+    Implement scoring in card clicks.
+    Implement Card management on card clicks.
 ]
 
 LogicalNote : [
-    Shuffle Images in Array then apply them to Cards (LOGICAL NOTE).    
+    Shuffle Images in Array then apply them to Cards (LOGICAL NOTE).    XXX
 ]

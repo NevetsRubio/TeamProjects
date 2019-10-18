@@ -108,8 +108,18 @@ class GameSession {
         let card = document.createElement('div');
         card.id = argCard.CardId;
         card.classList = "FlexCard";
-        card.style.backgroundImage = 'url(' + argCard.CardImage.ImageSrc + ')';
+        card.style.backgroundImage = 'url(' + argCard.CurrentImage + ')';
+        //fix this on click function to Flip cards.
+        card.onclick = 'Game.GameDeck.SelectCardById(' + argCard.CardId + ').FlipToggle(); Game.RefreshCardPosition();';
         return card;
+    }
+
+    RefreshCardPosition() {
+        let cards = this.GameDeck.Cards;
+
+        for (let i = 0; i < cards.length; i++) {
+            document.getElementById(cards[i].CardId).style.backgroundImage = 'url(' + cards[i].CurrentImage + ')';
+        }
     }
 }
 
@@ -130,6 +140,7 @@ class Deck {
         let deck = [];
         let count = (argCardCount / 2).toFixed(0);
 
+        //return object {front: '', back: ''}
         this.images = this.GenerateImages(count);
 
         for (let i = 1; i <= count; i++) {
@@ -212,24 +223,30 @@ class Deck {
 
 //__________________________________________________________________________//
 class Card {
-    constructor(argID, argMatchID, argCardImage) {
+    constructor(argID, argMatchID, argCardImages) {
         this.CardId = argID;
         this.MatchID = argMatchID;
-        this.CardImage = argCardImage;
+        this.CardImage = argCardImages.ImageSrc.Front;
+        this.CardBackImage = argCardImages.ImageSrc.Back;
         this.IsFlippedUp = true;
         this.IsMatched = false;
+
+        this.CurrentImage = (this.IsFlippedUp) ? this.CardImage : this.CardBackImage;
     }
 
     FlipUp() {
         this.IsFlippedUp = true;
+        this.CurrentImage = (this.IsFlippedUp) ? this.CardImage : this.CardBackImage;
     }
 
     FlipDown() {
         this.IsFlippedUp = false;
+        this.CurrentImage = (this.IsFlippedUp) ? this.CardImage : this.CardBackImage;
     }
 
     FlipToggle() {
         this.IsFlippedUp = !this.IsFlippedUp;
+        this.CurrentImage = (this.IsFlippedUp) ? this.CardImage : this.CardBackImage;
     }
 
     Match() {
@@ -254,7 +271,6 @@ class Images {
         } else if (argTheme == 'game of thrones') {
             Source = this.getGameOfThrones(argDifficulty);
         }
-
         return Source;
     }
 
@@ -265,8 +281,9 @@ class Images {
     }
 
     getPokemon(argDifficulty) {
+        let back = 'images/pokemon/132.jpg';
         if (argDifficulty == 'easy') {
-            return 'images/pokemon/1.jpg';
+            return { Front: 'images/pokemon/1.jpg', Back: back };
         } else if (argDifficulty == 'hard') {
 
         } else if (argDifficulty == 'impossible') {
