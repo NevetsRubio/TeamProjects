@@ -101,12 +101,34 @@
     }
 
     main {
-        width: 75%;
-        background-color: green;
+        width: 80%;
         margin: auto;
-        border: 2px solid grey;
         border-radius: 20px;
-        padding: 100px;
+        border: 1px solid black;
+        display: none;
+    }
+
+    .FlexRow {
+        display: flex;
+        width: 50%;
+        margin: auto;
+        align-content: space-between;
+        justify-content: space-evenly;
+    }
+
+    .FlexCard {
+        padding: 50px;
+        margin: 25px;
+        border: 1px solid black;
+        text-align: center;
+
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .FlexCard:hover,
+    .FlexCard:focus {
+        box-shadow: 0px 0px 10px green;
     }
 
     @media(max-width: 500px) {
@@ -123,12 +145,15 @@
 
 <body>
     <header>
-        Header
+
     </header>
-    <main>
+
+    <main id="main">
         <section id="GameBoard">
+
         </section>
         <section id="ScoreBoard">
+
         </section>
     </main>
     <footer>
@@ -146,34 +171,38 @@
             <div class="ModalBody">
                 <div>
                     <label>Card Counts: </label>
-                    <select>
-                        <option>4 X 4 &nbsp;(16 Cards)</option>
-                        <option>6 X 6 &nbsp;(36 Cards)</option>
-                        <option>8 X 8 &nbsp;(64 Cards)</option>
+                    <select id="selCardCount">
+                        <option value="16">4 X 4 &nbsp;(16 Cards)</option>
+                        <option value="36">6 X 6 &nbsp;(36 Cards)</option>
+                        <option value="64">8 X 8 &nbsp;(64 Cards)</option>
                     </select>
                 </div>
                 <div>
                     <label>Card Theme: </label>
-                    <select>
-                        <option>Numbers</option>
-                        <option>Power Rangers</option>
-                        <option>Pokemon</option>
+                    <select id="selTheme">
+                        <option value="pokemon">Pokemon</option>
+                        <option value="power rangers">Power Rangers</option>
+                        <option value="game of thrones">Game Of Thrones</option>
                     </select>
                 </div>
                 <div>
                     <label>Difficulty: </label>
-                    <select>
-                        <option>Easy</option>
-                        <option>Hard</option>
-                        <option>Impossible</option>
+                    <select id="selDifficulty">
+                        <option value="easy">Easy</option>
+                        <option value="hard">Hard</option>
+                        <option value="impossible">Impossible</option>
                     </select>
                 </div>
             </div>
             <div class="ModalFooter">
-                <button class="btn" onclick="closeSettings();">Apply Settings & Close</button>
+                <button class="btn" onclick="closeSettings(); updateSettings(); Game.GenerateBoard('GameBoard');">
+                    Apply Settings & Close
+                </button>
             </div>
         </div>
     </div>
+
+    <script src='/MemoryGame/script/GameSession.js'></script>
 
     <script>
         var modal = document.getElementById("myModal");
@@ -184,6 +213,7 @@
 
         function closeSettings() {
             modal.style.display = "none";
+
         }
 
         window.onclick = function (event) {
@@ -192,12 +222,33 @@
             }
         }
 
+        let GameCounter = 0;
+        let Game;
+        let gameHist = [];
+
+        function updateSettings() {
+            let theme = document.getElementById('selTheme').value;
+            let cardCount = document.getElementById('selCardCount').value;
+            let difficulty = document.getElementById('selDifficulty').value;
+            let startingScore = 1000;
+
+            GameCounter++;
+
+            (GameCounter > 1) ? gameHist.push(Game) : null;
+
+            let SETTINGS = {
+                Theme: theme,
+                CardCount: cardCount,
+                Difficulty: difficulty,
+                StartingScore: startingScore
+            }
+
+            Game = new GameSession(GameCounter, SETTINGS);
+            console.log(Game);
+        }
+
         openSettings();
     </script>
-
-
-    <script src='/MemoryGame/script/GameSession.js'></script>
-
 </body>
 
 </html>

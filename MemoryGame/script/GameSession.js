@@ -70,7 +70,7 @@ class GameSession {
         let PH = document.getElementById(argPlaceHolderId);
         let rows = [];
         let cards = this.GameDeck.Cards;
-        let numOfRows = Math.sqrt(this.GameDeck.Cards.length);
+        let numOfRows = Math.sqrt(cards.length);
 
         for (let i = 0; i < numOfRows; i++) {
             rows.push(this.CreateFlexBoxRow(i));
@@ -79,16 +79,22 @@ class GameSession {
         let FlexItem;
         let counter = 0;
         let rowNum = 0;
-        for (let i = 0; i < cards.length - 1; i++) {
+
+        for (let i = 0; i < cards.length; i++) {
             if (counter >= numOfRows) {
                 rowNum++;
                 counter = 0;
             }
             FlexItem = this.CreateFlexItem(cards[i]);
             rows[rowNum].appendChild(FlexItem);
+            counter++;
         }
 
-        rows.map(function (row) { PH.appendChild(row); });
+        for (let i = 0; i < rows.length; i++) {
+            PH.appendChild(rows[i]);
+        }
+
+        document.getElementById('main').style.display = 'block';
     }
 
     CreateFlexBoxRow(argRowNumber) {
@@ -102,6 +108,7 @@ class GameSession {
         let card = document.createElement('div');
         card.id = argCard.CardId;
         card.classList = "FlexCard";
+        card.style.backgroundImage = 'url(' + argCard.CardImage.ImageSrc + ')';
         return card;
     }
 }
@@ -115,20 +122,37 @@ class Deck {
         this.CardCount = argOptions.CardCount;
         this.Matches = [];
         this.CurrentSelection = [];
+        this.images = null;
         this.Cards = this.GenerateDeck(argOptions.CardCount);
     }
 
     GenerateDeck(argCardCount) {
-        var deck = [];
-        var count = (argCardCount / 2).toFixed(0);
+        let deck = [];
+        let count = (argCardCount / 2).toFixed(0);
 
-        for (var i = 1; i <= count; i++) {
-            deck.push(new Card(i, i, 'Test_1'));
-            deck.push(new Card(i * 100, i, 'Test_2'));
+        this.images = this.GenerateImages(count);
+
+        for (let i = 1; i <= count; i++) {
+            deck.push(new Card(i, i, this.images[i]));
+            deck.push(new Card(i * 100, i, this.images[i]));
         }
 
         this.Shuffle(deck);
         return deck;
+    }
+
+    GenerateImages(argCardCount) {
+        let images = [];
+        //let count = (argCardCount / 2).toFixed(0);
+        let count = argCardCount;
+
+        for (let i = 1; i <= count; i++) {
+            images.push(new Images(this.Theme, this.CardCount, this.Difficulty));
+            images.push(new Images(this.Theme, this.CardCount, this.Difficulty));
+        }
+
+        this.Shuffle(images);
+        return images;
     }
 
     SelectCardById(argCardID) {
@@ -186,6 +210,7 @@ class Deck {
     }
 }
 
+//__________________________________________________________________________//
 class Card {
     constructor(argID, argMatchID, argCardImage) {
         this.CardId = argID;
@@ -209,5 +234,63 @@ class Card {
 
     Match() {
         this.IsMatched = true;
+    }
+}
+
+//__________________________________________________________________________//
+class Images {
+    constructor(argTheme, argImageCount, argDifficulty) {
+        this.ImageSrc = this.getImageSource(argTheme, argImageCount, argDifficulty);
+        this.RelAttribute = this.getRelationship();
+    }
+
+    getImageSource(argTheme, argImageCount, argDifficulty) {
+        let Source;
+
+        if (argTheme == 'pokemon') {
+            Source = this.getPokemon(argDifficulty);
+        } else if (argTheme == 'power rangers') {
+            Source = this.getPowerRangers(argDifficulty);
+        } else if (argTheme == 'game of thrones') {
+            Source = this.getGameOfThrones(argDifficulty);
+        }
+
+        return Source;
+    }
+
+    getRelationship() {
+        let Relationship;
+
+        return Relationship;
+    }
+
+    getPokemon(argDifficulty) {
+        if (argDifficulty == 'easy') {
+            return 'images/pokemon/1.jpg';
+        } else if (argDifficulty == 'hard') {
+
+        } else if (argDifficulty == 'impossible') {
+
+        }
+    }
+
+    getPowerRangers(argDifficulty) {
+        if (argDifficulty == 'easy') {
+
+        } else if (argDifficulty == 'hard') {
+
+        } else if (argDifficulty == 'impossible') {
+
+        }
+    }
+
+    getGameOfThrones(argDifficulty) {
+        if (argDifficulty == 'easy') {
+
+        } else if (argDifficulty == 'hard') {
+
+        } else if (argDifficulty == 'impossible') {
+
+        }
     }
 }
